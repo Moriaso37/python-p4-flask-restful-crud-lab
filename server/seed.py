@@ -3,13 +3,13 @@
 from app import app
 from models import db, Plant
 
-
+# Seed the database
 with app.app_context():
-
+    print("🧹 Clearing existing data...")
     Plant.query.delete()
 
+    print("🌱 Creating new seed data...")
     aloe = Plant(
-        id=1,
         name="Aloe",
         image="./images/aloe.jpg",
         price=11.50,
@@ -17,7 +17,6 @@ with app.app_context():
     )
 
     zz_plant = Plant(
-        id=2,
         name="ZZ Plant",
         image="./images/zz-plant.jpg",
         price=25.98,
@@ -26,3 +25,4 @@ with app.app_context():
 
     db.session.add_all([aloe, zz_plant])
     db.session.commit()
+    print("✅ 🌱 Database successfully seeded!")

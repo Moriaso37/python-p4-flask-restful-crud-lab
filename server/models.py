@@ -5,12 +5,15 @@ db = SQLAlchemy()
 
 class Plant(db.Model, SerializerMixin):
     __tablename__ = 'plants'
+    
+    # Prevent recursion on serialized output (optional but recommended)
+    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    image = db.Column(db.String)
-    price = db.Column(db.Float)
-    is_in_stock = db.Column(db.Boolean)
+    name = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    is_in_stock = db.Column(db.Boolean, default=True)
 
     def __repr__(self):
         return f'<Plant {self.name} | In Stock: {self.is_in_stock}>'
